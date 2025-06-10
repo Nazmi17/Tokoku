@@ -14,6 +14,7 @@ class Barang extends Model
     protected $fillable = [
         'nama_barang',
         'harga_jual',
+        'harga_beli',
         'stok',
         'kategori_id',
         'user_id'
@@ -22,5 +23,10 @@ class Barang extends Model
     public function user()
     {
           return $this->belongsTo(User::class);
+    }
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id', 'id_kategori');
     }
 }

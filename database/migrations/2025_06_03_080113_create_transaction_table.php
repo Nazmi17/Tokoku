@@ -28,7 +28,8 @@ return new class extends Migration
             $table->integer('harga_satuan');
             $table->integer('subtotal');
             $table->foreignId('user_id')->constrained('users', 'id')->onDelete('cascade');
-        });    }
+        });    
+    }
 
     /**
      * Reverse the migrations.

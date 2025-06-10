@@ -25,7 +25,7 @@ return new class extends Migration
             $table->id('id_pengeluaran');
             $table->string('nama_pengeluaran');
             $table->integer('jumlah');
-            $table->string('jenis'); // tetap / tidak_tetap
+            $table->string('jenis'); 
             $table->date('tanggal');
             $table->foreignId('barang_id')->nullable()->constrained('barang', 'id_barang')->onDelete('set null');
             $table->foreignId('user_id')->constrained('users', 'id')->onDelete('cascade');
