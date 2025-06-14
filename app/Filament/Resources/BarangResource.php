@@ -21,6 +21,11 @@ class BarangResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+        public static function getEloquentQuery(): Builder
+{
+    return parent::getEloquentQuery()
+        ->where('user_id', Auth::id()); // Hanya tampilkan transaksi milik user login
+}
     public static function form(Form $form): Form
     {
         return $form

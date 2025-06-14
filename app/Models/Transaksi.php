@@ -11,6 +11,7 @@ class Transaksi extends Model
     protected $table = 'transaksi';
     protected $primaryKey = 'id_transaksi';
     protected $fillable = [
+
         'user_id',
         'total_harga',
         'dibayar',

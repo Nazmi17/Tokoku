@@ -6,11 +6,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Filament\Panel;
+use Filament\Models\Contracts\FilamentUser;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return true;
+    }
+
+    public function getFilamentName(): string
+    {
+        return $this->name ?? 'Admin';
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -66,10 +77,10 @@ class User extends Authenticatable
         return $this->hasMany(Barang::class);
     }
 
-    // public function restock_log()
-    // {
-    //     return $this->hasMany(Restock_log::class);
-    // }
+    public function restock_log()
+    {
+        return $this->hasMany(Restock_log::class);
+    }
 
     public function transaksi_detail()
     {
@@ -80,4 +91,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Kategori::class);
     }
+
+
 }

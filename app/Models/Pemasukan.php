@@ -11,6 +11,8 @@ class Pemasukan extends Model
 
     protected $table = 'pemasukan';
     protected $primaryKey = 'id_pemasukan';
+    public $timestamps = false;
+
 
     protected $fillable = [
         'transaksi_id',

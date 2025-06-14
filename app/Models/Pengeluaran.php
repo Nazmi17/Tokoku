@@ -9,6 +9,8 @@ class Pengeluaran extends Model
     use HasFactory;
     protected $table = 'pengeluaran';
     protected $primaryKey = 'id_pengeluaran';
+    public $timestamps = false;
+
     protected $fillable = [
         'nama_pengeluaran',
         'jumlah',

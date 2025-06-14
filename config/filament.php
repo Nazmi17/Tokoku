@@ -98,4 +98,10 @@ return [
 
     'system_route_prefix' => 'filament',
 
+    'colors' => [
+    'primary' => new \Filament\Support\Colors\Color('rgb(30, 64, 175)'), // warna biru tua
+],
+
+
+
 ];

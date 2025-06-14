@@ -2,17 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\RestockLogResource\Pages;
-use App\Filament\Resources\RestockLogResource\RelationManagers;
-use App\Models\Restock_log;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\Restock_log;
+use Filament\Resources\Resource;
+use Illuminate\Support\Facades\Auth;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\RestockLogResource\Pages;
+use App\Filament\Resources\RestockLogResource\RelationManagers;
 
 class RestockLogResource extends Resource
 {
@@ -22,6 +23,11 @@ class RestockLogResource extends Resource
     protected static ?string $navigationGroup = 'Laporan';
     protected static ?string $label = 'Histori Restock';
 
+        public static function getEloquentQuery(): Builder
+{
+    return parent::getEloquentQuery()
+        ->where('user_id', Auth::id()); // Hanya tampilkan transaksi milik user login
+}
     public static function form(Form $form): Form
     {
         return $form
@@ -34,6 +40,7 @@ class RestockLogResource extends Resource
     {
         return $table
             ->columns([
+                
                 TextColumn::make('barang.nama_barang')->label('Barang')->searchable(),
                 TextColumn::make('jumlah')->label('Jumlah')->sortable(),
                 TextColumn::make('harga_beli')->label('Harga Beli')->money('IDR'),

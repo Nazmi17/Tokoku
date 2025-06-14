@@ -1,11 +1,25 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProfileController;
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('beranda');
+})->name('beranda');
+
+Route::get('/fitur', function () {
+    return view('fitur');
+})->name('fitur');
+
+Route::post('/logout', function (Request $request) {
+    Auth::logout();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return redirect()->route('beranda');
+})->name('logout');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

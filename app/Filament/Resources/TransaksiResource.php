@@ -6,6 +6,7 @@ use Filament\Forms;
 use Filament\Tables;
 use App\Models\Barang;
 use Filament\Forms\Form;
+use App\Models\Pemasukan;
 use App\Models\Transaksi;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
@@ -39,6 +40,13 @@ class TransaksiResource extends Resource
         // $data['user_id'] = Auth::id();
         return $data;
     }
+
+    public static function getEloquentQuery(): Builder
+{
+    return parent::getEloquentQuery()
+        ->where('user_id', Auth::id()); // Hanya tampilkan transaksi milik user login
+}
+    
     public static function form(Form $form): Form   
     {
         return $form
@@ -54,53 +62,59 @@ class TransaksiResource extends Resource
                 }),
 
             TextInput::make('total_harga')
-                ->label('Total Harga')
+                ->label('Total Harga (Rp.')
                 ->numeric()
                 ->disabled()
                 ->dehydrated()
                 ->reactive(),
 
             TextInput::make('kembalian')
-                ->label('Kembalian')
+                ->label('Kembalian (Rp.)')
                 ->numeric()
                 ->disabled()
                 ->dehydrated(),
+
              Hidden::make('user_id')
-                        ->default(Auth::id()),
+                ->default(Auth::id()),
             Repeater::make('transaksi_detail')
                 ->label('Transaksi detail')
                 ->relationship('transaksi_detail')
                 ->schema([
                     Select::make('barang_id')
-                        ->label('Barang')
-                        ->relationship('barang', 'nama_barang')
-                        ->searchable()
-                        ->required()
-                        ->reactive()
-                        ->afterStateUpdated(function ($state, callable $set) {
-                            $barang = \App\Models\Barang::find($state);
-                            if ($barang) {
-                                $set('harga_satuan', $barang->harga_jual);
-                            }
-                        }),
+                    ->label('Barang')
+                    ->options(function () {
+                        return \App\Models\Barang::where('user_id', Auth::id())
+                            ->pluck('nama_barang', 'id_barang');
+                    })
+                    ->searchable()
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        $barang = \App\Models\Barang::find($state);
+                        if ($barang) {
+                            $set('harga_satuan', $barang->harga_jual);
+                        }
+                    }),
+
 
                     TextInput::make('qty')
                         ->label('Qty')
                         ->numeric()
                         ->required()
                         ->reactive()
-                        ->afterStateUpdated(function ($state, callable $set, $get) {
+                        ->afterStateUpdated(function ($state, callable $set, callable $get) {
                             $harga = $get('harga_satuan') ?? 0;
                             $subtotal = $state * $harga;
                             $set('subtotal', $subtotal);
 
-                            // Update total_harga & kembalian
-                            $set('total_harga', function () use ($get) {
-                                return collect($get('transaksi_detail'))->sum('subtotal');
-                            });
-                            $dibayar = $get('dibayar') ?? 0;
-                            $set('kembalian', $dibayar - collect($get('transaksi_detail'))->sum('subtotal'));
+                            $detail = $get('../../transaksi_detail'); 
+                            $total = collect($detail)->sum('subtotal');
+                            $dibayar = $get('../../dibayar') ?? 0;
+
+                            $set('../../total_harga', $total);
+                            $set('../../kembalian', $dibayar - $total);
                         }),
+
 
                     TextInput::make('harga_satuan')
                         ->label('Harga Satuan')
@@ -130,21 +144,15 @@ class TransaksiResource extends Resource
             ]); 
     }
 
-    public static function afterCreate(Form $form, Model $record): void
-    {
-        foreach ($record->transaksi_detail as $detail){
-            $barang = $detail->barang;
-            $barang->stock -= $detail->qty;
-            $barang->save();
-        }
-    }
-
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('id_transaksi')->label('ID'),
-                TextColumn::make('user.name')->label('User'),
+                TextColumn::make('rowIndex')
+                    ->label('No.')
+                    ->rowIndex()
+                    ->sortable(false),
+                // TextColumn::make('user.name')->label('User'),
                 TextColumn::make('total_harga')->label('Total Harga')->money('IDR', true),
                 TextColumn::make('dibayar')->label('Dibayar')->money('IDR', true),
                 TextColumn::make('kembalian')->label('Kembalian')->money('IDR', true),

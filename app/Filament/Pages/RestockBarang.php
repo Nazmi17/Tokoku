@@ -4,6 +4,7 @@ namespace App\Filament\Pages;
 
 
 use App\Models\Barang;
+use App\Models\Pengeluaran;
 use App\Models\Restock_log;
 use Illuminate\Support\Facades\Auth;
 use Filament\Pages\Page;
@@ -38,7 +39,7 @@ class RestockBarang extends Page implements HasForms
                 ->schema([
                     Select::make('barang_id')
                         ->label('Barang')
-                        ->options(Barang::all()->pluck('nama_barang', 'id_barang'))
+                        ->options(Barang::where('user_id', Auth::id())->pluck('nama_barang', 'id_barang'))
                         ->searchable()
                         ->required(),
                     TextInput::make('jumlah')
@@ -84,6 +85,15 @@ class RestockBarang extends Page implements HasForms
                 'catatan' => $item['catatan'] ?? null,
                 'user_id' => $userID,
                 'created_at' => now(),
+            ]);
+
+            Pengeluaran::create([
+                'nama_pengeluaran' => 'Restock; ' . $barang->nama_barang,
+                'jumlah' => $barang->harga_beli * $jumlah,
+                'jenis' => 'Restock',
+                'tanggal' => now()->toDateString(),
+                'barang_id' => $barang->id_barang,
+                'user_id' => $userID
             ]);
         }
 

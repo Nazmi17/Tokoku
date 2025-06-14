@@ -2,6 +2,11 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\GrafikKeuangan;
+use App\Filament\Widgets\PengeluaranCard;
+use App\Filament\Widgets\RevenueCard;
+use App\Filament\Widgets\WelcomeWidget;
+use App\Models\Pengeluaran;
 use Filament\Widgets\Widget;
 use Filament\Facades\Filament;
 use Filament\Widgets\AccountWidget;
@@ -37,6 +42,10 @@ class Dashboard extends BaseDashboard
     {
         return [
             AccountWidget::class,
+            WelcomeWidget::class,
+            RevenueCard::class,
+            // GrafikKeuangan::class
+            // PengeluaranCard::class,
         ];
     }
 }

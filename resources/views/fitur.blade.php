@@ -58,38 +58,46 @@
     </nav>
   </header>
 
-  <div class="mx-auto h-full px-4 py-28 md:py-40 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
-    <div class="flex flex-col items-center justify-between lg:flex-row">
-      <div class="">
-        <div class="lg:max-w-xl lg:pr-5">
-          <p class="flex text-sm uppercase text-golden">
-            <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 inline h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" />
-            </svg>
-            Sebuah Website Untuk Pengelolaan Warung
-          </p>
-          <h2 class="mb-6 max-w-lg text-5xl font-bold leading-snug tracking-tight text-white sm:text-7xl sm:leading-snug">
-            Tokoku, Membuat Pengelolaan Lebih
-            <span class="my-1 inline-block border-b-8 border-white bg-golden px-4 font-bold text-white">Mudah</span>
-          </h2>
-          <p class="text-base text-gray-400">Dengan fitur-fitur yang terbaru, website ini akan memberikan anda pengalaman baru dalam mengelola website.</p>
-        </div>
-        <div class="mt-10 flex flex-col items-center md:flex-row">
-          <a href="/" class="mb-3 inline-flex h-12 w-full items-center justify-center rounded bg-black border-2 border-golden px-6 font-medium tracking-wide text-golden shadow-md transition md:mr-4 md:mb-0 md:w-auto focus:outline-none hover:bg-golden hover:text-black">Fitur-fitur </a>
-          <a href="{{ route('register') }}" aria-label="" class="group inline-flex items-center font-semibold text-golden"
-            >Daftarkan akun anda
-            <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:translate-x-2 ml-4 h-6 w-6 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-        </div>
+  <section class="bg-gray-950 px-4 py-20 text-white">
+  <div class="mx-auto max-w-screen-xl">
+    <h2 class="mb-16 text-center text-4xl font-bold">Fitur Unggulan Tokoku</h2>
+    <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+      <!-- Fitur 1 -->
+      <div class="flex flex-col items-center text-center border border-golden hover:transform hover:scale-105">
+        <img src="{{ asset('images/transaksi.png') }}" alt="Fitur Kasir" class="mb-6 w-full h-full object-contain" />
+        <h3 class="mb-2 text-xl font-semibold text-orange-400">Fitur Kasir</h3>
+        <p class="text-gray-400 text-sm">
+          Mempermudah proses transaksi penjualan dengan input barang otomatis, pengurangan stok, dan perhitungan kembalian.
+        </p>
       </div>
-      <div class="relative hidden lg:ml-32 lg:block lg:w-1/2">
-        <img src="{{ asset('images/Logo_beranda.png') }}" alt="">
+      <!-- Fitur 2 -->
+      <div class="flex flex-col items-center text-center border border-golden hover:transform hover:scale-105">
+        <img src="{{ asset('images/Restock.png') }}" alt="Restock Barang" class="mb-6 w-full h-full object-contain" />
+        <h3 class="mb-2 text-xl font-semibold text-orange-400">Restock Barang</h3>
+        <p class="text-gray-400 text-sm">
+          Catat pada saat anda merestock barang anda.
+        </p>
+      </div>
+      <!-- Fitur 3 -->
+      <div class="flex flex-col items-center text-center border border-golden hover:transform hover:scale-105">
+        <img src="{{ asset('images/Barang.png') }}" alt="Manajemen Barang" class="mb-6 w-ful; h-full object-contain" />
+        <h3 class="mb-2 text-xl font-semibold text-orange-400">Manajemen Barang</h3>
+        <p class="text-gray-400 text-sm">
+          Tambah, ubah, dan kelola data barang Anda termasuk harga beli, stok, dan kategori dengan antarmuka yang ramah pengguna.
+        </p>
+      </div>
+      <!-- Fitur 4 -->
+      <div class="flex flex-col items-center text-center border border-golden hover:transform hover:scale-105">
+        <img src="{{ asset('images/Grafik.png') }}" alt="Laporan Keuangan" class="mb-6 w-full h-full object-contain" />
+        <h3 class="mb-2 text-xl font-semibold text-orange-400">Laporan Keuangan</h3>
+        <p class="text-gray-400 text-sm">
+          Ringkasan pemasukan, pengeluaran, dan performa warung melalui grafik dan laporan yang mudah dipahami.
+        </p>
       </div>
     </div>
   </div>
-</div>
+</section>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>

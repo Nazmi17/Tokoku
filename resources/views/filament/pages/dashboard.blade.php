@@ -1,8 +1,7 @@
 <x-filament::page>
-
-
-    <div class="mt-6">
-        <p>Selamat datang di dashboard kustom Tokoku!</p>
+       <div class="flex flex-wrap gap-4">
+    <div class="w-full">
+        @livewire(\App\Filament\Widgets\GrafikKeuangan::class)
     </div>
+</div>
 </x-filament::page>
-

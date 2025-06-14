@@ -75,7 +75,7 @@
           <p class="text-base text-gray-400">Dengan fitur-fitur yang terbaru, website ini akan memberikan anda pengalaman baru dalam mengelola website.</p>
         </div>
         <div class="mt-10 flex flex-col items-center md:flex-row">
-          <a href="/" class="mb-3 inline-flex h-12 w-full items-center justify-center rounded bg-black border-2 border-golden px-6 font-medium tracking-wide text-golden shadow-md transition md:mr-4 md:mb-0 md:w-auto focus:outline-none hover:bg-golden hover:text-black">Fitur-fitur </a>
+          <a href="{{ route('fitur') }}" class="mb-3 inline-flex h-12 w-full items-center justify-center rounded bg-black border-2 border-golden px-6 font-medium tracking-wide text-golden shadow-md transition md:mr-4 md:mb-0 md:w-auto focus:outline-none hover:bg-golden hover:text-black">Fitur-fitur </a>
           <a href="{{ route('register') }}" aria-label="" class="group inline-flex items-center font-semibold text-golden"
             >Daftarkan akun anda
             <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:translate-x-2 ml-4 h-6 w-6 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
